@@ -1,0 +1,36 @@
+<div id="contactModal" onclick="if (event.target.id === 'contactModal') hideContactModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+  <div onclick="event.stopImmediatePropagation()" class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl">
+    <div class="px-7 pt-7 pb-6">
+      <div class="flex justify-between items-center mb-6">
+        <div class="font-display text-2xl font-semibold tracking-tight">Make an Offer or Inquire</div>
+        <button onclick="hideContactModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-times text-2xl"></i></button>
+      </div>
+
+      <form id="offerForm" onsubmit="submitOfferForm(event)">
+        <div class="space-y-4">
+          <div>
+            <label class="text-xs tracking-widest font-medium text-slate-400 block mb-1.5">YOUR NAME</label>
+            <input type="text" id="name" required class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 rounded-2xl px-5 py-3 text-sm placeholder:text-slate-600 outline-none" />
+          </div>
+          <div>
+            <label class="text-xs tracking-widest font-medium text-slate-400 block mb-1.5">EMAIL ADDRESS</label>
+            <input type="email" id="email" required class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 rounded-2xl px-5 py-3 text-sm placeholder:text-slate-600 outline-none" />
+          </div>
+          <div>
+            <label class="text-xs tracking-widest font-medium text-slate-400 block mb-1.5">YOUR OFFER / MESSAGE</label>
+            <textarea id="message" rows="3" placeholder="I'd like to offer $XX,XXX or discuss..." required class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 rounded-2xl px-5 py-3 text-sm placeholder:text-slate-600 outline-none resize-y"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-6 flex gap-x-3">
+          <button type="button" onclick="hideContactModal()"
+                  class="flex-1 py-3 rounded-2xl border border-slate-700 hover:bg-slate-800 text-sm font-medium transition">Cancel</button>
+          <button type="submit"
+                  class="flex-1 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-semibold text-sm transition">Send Private Inquiry</button>
+        </div>
+      </form>
+
+      <p class="text-center text-[10px] text-slate-500 mt-5">Your inquiry is private. We respond within 24 hours.</p>
+    </div>
+  </div>
+</div>

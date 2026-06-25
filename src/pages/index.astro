@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import OpportunitySection from '../components/OpportunitySection.astro';
+import StatsSection from '../components/StatsSection.astro';
+import WhySection from '../components/WhySection.astro';
+import UseCases from '../components/UseCases.astro';
+import PricingCTA from '../components/PricingCTA.astro';
+import ClosingCTA from '../components/ClosingCTA.astro';
+import Footer from '../components/Footer.astro';
+import PurchaseModal from '../components/PurchaseModal.astro';
+import ContactModal from '../components/ContactModal.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout>
+  <Nav />
+  <main>
+    <Hero />
+    <TrustBar />
+    <OpportunitySection />
+    <StatsSection />
+    <WhySection />
+    <UseCases />
+    <PricingCTA />
+    <ClosingCTA />
+    <Footer />
+  </main>
+  <PurchaseModal />
+  <ContactModal />
+</BaseLayout>
+
+<script>
+  import { ACQUISITION_MAILTO } from '../config/site';
+
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav?.classList.add('nav-scrolled', 'bg-slate-950/95');
+    } else {
+      nav?.classList.remove('nav-scrolled');
+    }
+  });
+
+  // Animated counters
+  function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+
+    counters.forEach(counter => {
+      const target = parseFloat(counter.getAttribute('data-target') || '0');
+      const isDecimal = counter.textContent?.includes('.');
+      const duration = 1600;
+      const startTime = performance.now();
+
+      function update(currentTime: number) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        let current: number | string;
+        if (isDecimal) {
+          current = (target * eased).toFixed(1);
+        } else if (target >= 1000) {
+          current = Math.floor(target * eased).toLocaleString();
+        } else {
+          current = Math.floor(target * eased);
+        }
+
+        if (target === 1500) {
+          counter.textContent = current + 'M+';
+        } else if (target === 45) {
+          counter.textContent = current + 'B+';
+        } else if (target === 98.5) {
+          counter.textContent = current + '%';
+        } else if (target === 20) {
+          counter.textContent = current + '%';
+        } else {
+          counter.textContent = String(current);
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          if (target === 1500) counter.textContent = '1.5B+';
+          if (target === 45) counter.textContent = '45B+';
+          if (target === 98.5) counter.textContent = '98.5%';
+          if (target === 20) counter.textContent = '20%';
+        }
+      }
+
+      requestAnimationFrame(update);
+    });
+  }
+
+  // Trigger counters on scroll
+  const statsSection = document.getElementById('stats');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  if (statsSection) observer.observe(statsSection);
+
+  // Purchase modal
+  let purchaseModal: HTMLElement | null = null;
+  let contactModal: HTMLElement | null = null;
+
+  function showPurchaseModal() {
+    purchaseModal = document.getElementById('purchaseModal');
+    purchaseModal?.classList.remove('hidden');
+    purchaseModal?.classList.add('flex');
+  }
+
+  function hidePurchaseModal() {
+    purchaseModal?.classList.remove('flex');
+    purchaseModal?.classList.add('hidden');
+  }
+
+  function showContactModal() {
+    contactModal = document.getElementById('contactModal');
+    contactModal?.classList.remove('hidden');
+    contactModal?.classList.add('flex');
+  }
+
+  function hideContactModal() {
+    contactModal?.classList.remove('flex');
+    contactModal?.classList.add('hidden');
+  }
+
+  function initiatePurchase() {
+    showPurchaseModal();
+  }
+
+  function completePurchase() {
+    hidePurchaseModal();
+    const thanksHTML = `
+      <div class="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-[200] p-6">
+        <div class="max-w-md w-full bg-slate-900 border border-emerald-500/30 rounded-3xl p-8 text-center">
+          <div class="mx-auto w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6">
+            <i class="fa-solid fa-check text-emerald-400 text-4xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold tracking-tight mb-2">Thank You!</h3>
+          <p class="text-slate-300 mb-6">Your interest in acquiring <span class="font-mono text-amber-400">languageleapenglish.com</span> has been noted. A representative will contact you within a few hours to complete the secure escrow process.</p>
+          <div class="text-xs bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-6 text-left text-slate-400">
+            <strong class="text-emerald-400">Next steps:</strong><br>
+            1. Escrow.com transaction initiated<br>
+            2. Domain push / auth code provided<br>
+            3. Full ownership transferred
+          </div>
+          <button onclick="this.closest('.fixed')?.remove()"
+                  class="px-8 py-2.5 text-sm font-semibold bg-white text-slate-950 rounded-2xl hover:bg-amber-50 active:bg-white transition w-full">
+            Return to Site
+          </button>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', thanksHTML);
+  }
+
+  function submitOfferForm(e: Event) {
+    e.preventDefault();
+    const nameEl = document.getElementById('name') as HTMLInputElement;
+    const name = nameEl?.value || '';
+    hideContactModal();
+
+    const successHTML = `
+      <div class="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-[200] p-6">
+        <div class="max-w-sm w-full bg-slate-900 border border-slate-700 rounded-3xl p-8 text-center">
+          <i class="fa-solid fa-envelope text-4xl text-amber-400 mb-5"></i>
+          <h3 class="font-semibold text-xl mb-2">Inquiry Received</h3>
+          <p class="text-sm text-slate-300 mb-6">Thank you, ${name.split(' ')[0]}. We've received your message and will respond personally within 24 hours.</p>
+          <button onclick="this.closest('.fixed')?.remove()"
+                  class="w-full py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-sm font-medium transition">Close</button>
+          <div class="mt-4 text-[10px] text-slate-500">You can also email directly: <a href="${ACQUISITION_MAILTO}" class="underline hover:text-amber-400">${ACQUISITION_MAILTO}</a></div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', successHTML);
+  }
+
+  // Expose to global scope for inline onclick handlers
+  (window as any).showPurchaseModal = showPurchaseModal;
+  (window as any).hidePurchaseModal = hidePurchaseModal;
+  (window as any).showContactModal = showContactModal;
+  (window as any).hideContactModal = hideContactModal;
+  (window as any).initiatePurchase = initiatePurchase;
+  (window as any).completePurchase = completePurchase;
+  (window as any).submitOfferForm = submitOfferForm;
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '?' && document.activeElement?.tagName === 'BODY') {
+      e.preventDefault();
+      document.getElementById('stats')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    if (e.metaKey && e.key === 'Enter') {
+      e.preventDefault();
+      initiatePurchase();
+    }
+  });
+
+  console.log('%c[languageleapenglish.com] Premium domain landing page initialized.', 'color:#475569');
+</script>

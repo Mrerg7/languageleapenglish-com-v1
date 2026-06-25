@@ -1,0 +1,68 @@
+---
+import { ACQUISITION_MAILTO, SITE } from '../config/site';
+---
+
+<footer class="border-t border-white/10 bg-slate-950">
+  <div class="max-w-5xl mx-auto px-6 py-16">
+    <!-- Sophisticated Domain Acquisition CTA -->
+    <div class="relative overflow-hidden rounded-3xl border border-amber-500/25 bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/30 p-8 sm:p-12 mb-12">
+      <div
+        class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"
+        aria-hidden="true"
+      ></div>
+
+      <div class="relative z-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+        <div>
+          <p class="text-xs uppercase tracking-[3px] text-amber-400 font-extrabold mb-4">Domain Available for Acquisition</p>
+          <h2 class="font-display text-3xl sm:text-4xl tracking-tight mb-4">
+            languageleapenglish.com — A Category-Defining Digital Asset
+          </h2>
+          <p class="text-slate-400 max-w-xl leading-relaxed">
+            Positioned at the exact intersection of English language education and global business growth,
+            this domain is a rare strategic asset. Serious buyers may inquire for pricing, transfer
+            logistics, and escrow options.
+          </p>
+        </div>
+
+        <div class="glass rounded-2xl p-6 sm:p-8 border border-white/10" style="background: rgba(10, 10, 10, 0.88); backdrop-filter: blur(22px);">
+          <p class="text-xs uppercase tracking-[2px] text-slate-500 font-semibold mb-2">Acquisition Contact</p>
+          <a
+            href={ACQUISITION_MAILTO}
+            class="block text-2xl sm:text-3xl font-display text-white hover:text-amber-400 transition-colors break-all"
+          >
+            {SITE.email}
+          </a>
+          <a
+            href={ACQUISITION_MAILTO}
+            class="mt-6 inline-flex w-full items-center justify-center gap-x-3 px-6 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold rounded-2xl hover:brightness-110 transition-all"
+          >
+            <span>Inquire About Acquisition</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <p class="mt-4 text-[11px] text-slate-500 text-center tracking-wide">
+            Confidential inquiries • Response within 24 hours
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="text-xs text-slate-500 leading-relaxed max-w-4xl mb-10">
+      This website is for demonstration and informational purposes only. It does not constitute an offer of services,
+      a commitment to deploy, or a guarantee of outcomes. All statistics, projections, and references to specific
+      technologies are based on publicly available information as of June 25, 2026 and are subject to change.
+    </p>
+
+    <!-- Bottom bar -->
+    <div class="pt-8 border-t border-white/10 text-xs text-slate-500 flex flex-col md:flex-row gap-y-4 items-center justify-between">
+      <div>&copy; 2026 languageleapenglish.com. All rights reserved.</div>
+      <div class="flex items-center gap-x-5">
+        <span>Premium domain listing by owner</span>
+      </div>
+    </div>
+  </div>
+</footer>

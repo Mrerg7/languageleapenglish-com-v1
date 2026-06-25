@@ -1,0 +1,61 @@
+---
+import { cfImageUrl, CF_IMAGES, SITE } from '../config/site';
+
+const heroBg = cfImageUrl(CF_IMAGES.heroImageId);
+---
+
+<header
+  class="hero-bg min-h-[100dvh] flex items-center relative pt-16 md:pt-0"
+  style="background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('{heroBg}');"
+>
+  <div class="max-w-screen-xl mx-auto px-6 pb-12 md:pb-0">
+    <div class="max-w-4xl">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-[1.5px] px-4 py-1.5 rounded-3xl mb-6">
+        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+        <span>PREMIUM .COM DOMAIN • AVAILABLE NOW</span>
+      </div>
+
+      <h1 class="domain-hero text-white tracking-tighter mb-4">
+        languageleap<span class="text-amber-400">english</span>.com
+      </h1>
+
+      <p class="max-w-2xl text-2xl md:text-3xl font-light tracking-tight text-slate-200 mb-8">
+        Own the definitive brand for <span class="font-medium text-white">English language mastery</span> in a globalized world.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10">
+        <button onclick="initiatePurchase()"
+                class="group w-full sm:w-auto inline-flex items-center justify-center gap-x-3 bg-white hover:bg-amber-50 active:bg-white text-slate-950 font-semibold text-lg px-10 py-4 rounded-3xl transition-all shadow-2xl active:scale-[0.985]">
+          <span>Secure This Domain — $19,500</span>
+          <i class="fa-solid fa-arrow-right group-active:translate-x-1 transition"></i>
+        </button>
+
+        <button onclick="document.getElementById('stats').scrollIntoView({ behavior: 'smooth' })"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-x-2 px-8 py-4 text-lg font-medium border border-white/30 hover:bg-white/10 rounded-3xl transition-all">
+          <span>See the data</span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-x-8 text-sm">
+        <div class="flex -space-x-2">
+          <div class="w-7 h-7 bg-slate-300 rounded-full ring-2 ring-slate-950 overflow-hidden"><img src="https://i.pravatar.cc/28?img=28" alt="" /></div>
+          <div class="w-7 h-7 bg-slate-300 rounded-full ring-2 ring-slate-950 overflow-hidden"><img src="https://i.pravatar.cc/28?img=47" alt="" /></div>
+          <div class="w-7 h-7 bg-slate-300 rounded-full ring-2 ring-slate-950 overflow-hidden"><img src="https://i.pravatar.cc/28?img=12" alt="" /></div>
+        </div>
+        <div class="text-slate-400 text-sm">
+          Acquired by forward-thinking founders &amp; edtech teams
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 hidden md:block">
+    <div onclick="document.getElementById('stats').scrollIntoView({ behavior: 'smooth' })"
+         class="flex flex-col items-center cursor-pointer group">
+      <span class="text-[10px] tracking-[2px] text-white/60 mb-1.5 group-hover:text-white/90 transition">SCROLL TO EXPLORE</span>
+      <i class="fa-solid fa-chevron-down text-white/60 group-hover:text-white/90 transition"></i>
+    </div>
+  </div>
+</header>

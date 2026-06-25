@@ -1,0 +1,54 @@
+---
+import { ACQUISITION_MAILTO } from '../config/site';
+---
+
+<div id="purchaseModal" onclick="if (event.target.id === 'purchaseModal') hidePurchaseModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+  <div onclick="event.stopImmediatePropagation()" class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl">
+    <div class="px-7 pt-7 pb-5">
+      <div class="flex justify-between items-start mb-5">
+        <div>
+          <div class="font-display text-3xl font-semibold tracking-tighter">Secure This Domain</div>
+          <div class="text-emerald-400 text-sm font-medium mt-0.5">Instant ownership transfer</div>
+        </div>
+        <button onclick="hidePurchaseModal()" class="text-slate-400 hover:text-white p-1 -mr-1"><i class="fa-solid fa-times text-2xl"></i></button>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 mb-6">
+        <div class="flex justify-between items-baseline">
+          <div class="text-sm text-slate-400">Buy It Now Price</div>
+          <div class="text-4xl font-bold tracking-tighter">$19,500</div>
+        </div>
+        <div class="text-[10px] text-emerald-400/70 mt-1">One-time payment • Full rights included</div>
+      </div>
+
+      <div class="space-y-3 text-sm">
+        <div class="flex items-center gap-x-3 text-slate-300">
+          <i class="fa-solid fa-check text-emerald-400 w-4"></i>
+          <span>Full ownership of languageleapenglish.com</span>
+        </div>
+        <div class="flex items-center gap-x-3 text-slate-300">
+          <i class="fa-solid fa-check text-emerald-400 w-4"></i>
+          <span>Fast, secure transfer via Escrow.com</span>
+        </div>
+        <div class="flex items-center gap-x-3 text-slate-300">
+          <i class="fa-solid fa-check text-emerald-400 w-4"></i>
+          <span>No hidden fees or renewals beyond standard registrar</span>
+        </div>
+        <div class="flex items-center gap-x-3 text-slate-300">
+          <i class="fa-solid fa-check text-emerald-400 w-4"></i>
+          <span>Immediate push or auth code delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-slate-950 px-7 py-5 border-t border-slate-800 flex flex-col gap-y-3">
+      <button onclick="completePurchase()"
+              class="w-full py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 transition font-semibold text-white flex items-center justify-center gap-x-2">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Proceed with Secure Purchase</span>
+      </button>
+      <button onclick="hidePurchaseModal(); showContactModal()"
+              class="w-full py-3 text-sm font-medium text-slate-400 hover:text-slate-200 transition">I want to make an offer instead</button>
+    </div>
+  </div>
+</div>
