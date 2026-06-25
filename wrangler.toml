@@ -4,7 +4,8 @@ workers_dev = false
 preview_urls = false
 
 routes = [
-  { pattern = "languageleapenglish.com", custom_domain = true }
+  { pattern = "languageleapenglish.com", custom_domain = true },
+  { pattern = "www.languageleapenglish.com", custom_domain = true }
 ]
 
 [assets]
