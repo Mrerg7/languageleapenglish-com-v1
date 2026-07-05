@@ -3,12 +3,24 @@ export const SITE = {
   title: 'languageleapenglish.com | Premium Domain For Sale — English Language Mastery Brand',
   description:
     'Own languageleapenglish.com — the premium brand for English language mastery. 1.5B+ speakers, $45B+ market. High-acquisition domain perfect for business English, language platforms, corporate training & global education. Priced at $19,500.',
-  url: 'https://languageleapenglish.com',
+  url: 'https://languageleapenglish.com/',
   email: 'sales@desertrich.com',
   locale: 'en_US',
   location: 'Arizona',
   googleSiteVerification: 'l9ss_Z9bsyW8fPTtmawyDfFucZw5GvZ-D4trzk_EUdE',
 } as const;
+
+/** Build a canonical URL that always uses the apex HTTPS host and trailing slashes. */
+export function canonicalUrl(pathname: string): string {
+  const normalizedPath =
+    pathname === '/' || pathname === '' || pathname === '/index/' || pathname === '/index.html'
+      ? '/'
+      : pathname.endsWith('/')
+        ? pathname
+        : `${pathname}/`;
+
+  return new URL(normalizedPath, SITE.url).href;
+}
 
 export const CF_IMAGES = {
   accountHash: '-sPAUAWeA405NiWJ0SNIQA',
