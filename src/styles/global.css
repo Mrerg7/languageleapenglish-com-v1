@@ -5,8 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     @apply bg-slate-950 text-slate-200 overflow-x-hidden font-sans antialiased;
+    font-size: 16px;
   }
 }
 
@@ -17,23 +23,19 @@
   }
 
   .domain-hero {
-    font-size: 3.5rem;
-    line-height: 1;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    line-height: 1.05;
     letter-spacing: -0.04em;
     font-weight: 700;
-  }
-
-  @media (max-width: 768px) {
-    .domain-hero {
-      font-size: 2.75rem;
-    }
+    overflow-wrap: anywhere;
   }
 
   .section-header {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    line-height: 1.15;
     font-weight: 700;
     letter-spacing: -0.025em;
+    overflow-wrap: anywhere;
   }
 
   .metric {
@@ -73,7 +75,12 @@
   .hero-bg {
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+  }
+
+  @media (min-width: 768px) {
+    .hero-bg {
+      background-attachment: fixed;
+    }
   }
 
   .global-grid {
