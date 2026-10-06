@@ -77,4 +77,4 @@ That combination is what supports a five-figure buy-it-now price rather than a "
 
 If you are pricing a name you own, start with comps and adjust for the six inputs above. If you are buying, price the name against the marketing budget it saves and the rebranding risk it removes.
 
-The domain discussed on this site — [languageleapenglish.com](/) — follows exactly that framework: two high-intent words, no hyphens, .com, clean history, and no substitute. It is listed at a fixed buy-it-now price of **$19,500** with escrow-protected transfer.
+The domain discussed on this site — [languageleapenglish.com](/) — follows exactly that framework: two high-intent words, no hyphens, .com, clean history, and no substitute. It is listed at a fixed buy-it-now price of **$49,999** with escrow-protected transfer.

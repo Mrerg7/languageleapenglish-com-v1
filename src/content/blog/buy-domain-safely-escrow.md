@@ -75,7 +75,7 @@ Only then approve the escrow release.
 
 ## Buying from an owner-operated listing
 
-Many premium names are not on a marketplace at all — the owner lists the domain on its own page and handles enquiries directly. That is how [languageleapenglish.com](/) is sold: a fixed buy-it-now price of **$19,500**, transfer completed through Escrow.com, typically within 24 hours, with instalment structures available for qualified buyers.
+Many premium names are not on a marketplace at all — the owner lists the domain on its own page and handles enquiries directly. That is how [languageleapenglish.com](/) is sold: a fixed buy-it-now price of **$49,999**, transfer completed through Escrow.com, typically within 24 hours, with instalment structures available for qualified buyers.
 
 The checklist above applies identically — verify control, agree terms, fund escrow, transfer, inspect, release.
 

@@ -2,6 +2,12 @@
 
 All notable changes to languageleapenglish.com are documented here.
 
+## [FEAT]: Update sale price to $49,999 — 2026-10-06
+
+- Buy-it-now price raised from **$19,500** to **$49,999** across the whole site: `PRICE` constant (drives all CTAs, sticky bar, modals and the `Product`/`Offer` schema `price`), meta description, FAQ answer and all three `/insights/` posts.
+- Single source of truth remains `src/config/site.ts` → `PRICE.formatted` / `PRICE.amount`; grep confirms zero remaining `$19,500` references.
+- Deployed to Cloudflare Workers (version `61904fd8`) and verified live on all 6 pages — old price count 0, JSON-LD `"price":"49999"`.
+
 ## [FEAT]: Optimization improvements — 2026-10-06
 
 Deployed to Cloudflare Workers (`languageleapenglish-com-v1`, version `dbc763aa`) on the free plan.

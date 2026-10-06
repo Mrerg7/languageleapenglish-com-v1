@@ -3,7 +3,7 @@ export const SITE = {
   brand: 'LanguageLeap English',
   title: 'languageleapenglish.com | Premium Domain for Sale | LanguageLeap English',
   description:
-    'languageleapenglish.com is for sale at $19,500 USD — a premium exact-match .com for English language learning, business English and global education brands. Escrow-protected transfer in 24 hours. Enquire today.',
+    'languageleapenglish.com is for sale at $49,999 USD — a premium exact-match .com for English language learning, business English and global education brands. Escrow-protected transfer in 24 hours. Enquire today.',
   keywords: [
     'buy .com domains',
     'domain marketplace',
@@ -25,9 +25,9 @@ export const SITE = {
 
 /** Buy-it-now price for the domain, formatted at call sites. */
 export const PRICE = {
-  amount: 19500,
+  amount: 49999,
   currency: 'USD',
-  formatted: '$19,500',
+  formatted: '$49,999',
 } as const;
 
 /** Build a canonical URL that always uses the apex HTTPS host and trailing slashes. */

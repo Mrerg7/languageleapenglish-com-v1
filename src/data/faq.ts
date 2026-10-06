@@ -7,7 +7,7 @@ export const FAQS: Faq[] = [
   {
     question: 'Is languageleapenglish.com really available to buy right now?',
     answer:
-      'Yes. The domain is parked, unlocked and listed at a buy-it-now price of $19,500 USD. Ownership transfers once, to one buyer — a .com can only ever be registered once, so this is a one-of-one asset.',
+      'Yes. The domain is parked, unlocked and listed at a buy-it-now price of $49,999 USD. Ownership transfers once, to one buyer — a .com can only ever be registered once, so this is a one-of-one asset.',
   },
   {
     question: 'How does the purchase and transfer actually work?',

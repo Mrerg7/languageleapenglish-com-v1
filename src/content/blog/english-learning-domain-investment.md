@@ -64,4 +64,4 @@ No investment is frictionless:
 
 The intersection of a very large speaker base, a growing training market and a finite supply of readable names is why serious buyers treat English-learning .coms as long-hold assets rather than expenses.
 
-[languageleapenglish.com](/) sits at that intersection: an exact-match .com combining *language*, *leap* and *english*, listed at **$19,500** with escrow-protected transfer. Enquire via the [contact form](/#faq) if it fits your roadmap.
+[languageleapenglish.com](/) sits at that intersection: an exact-match .com combining *language*, *leap* and *english*, listed at **$49,999** with escrow-protected transfer. Enquire via the [contact form](/#faq) if it fits your roadmap.
