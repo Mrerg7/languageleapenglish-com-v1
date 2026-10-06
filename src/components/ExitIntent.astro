@@ -1,0 +1,167 @@
+---
+import { ACQUISITION_MAILTO, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<div
+  id="exitIntent"
+  data-modal
+  hidden
+  class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[110] items-center justify-center p-4 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exitIntentTitle"
+>
+  <div class="bg-slate-900 border border-amber-500/40 rounded-3xl max-w-lg w-full my-auto overflow-hidden shadow-2xl">
+    <div class="px-6 sm:px-8 pt-7 pb-6 relative">
+      <button
+        type="button"
+        data-close-exit
+        class="absolute top-3 right-3 min-h-12 min-w-12 text-slate-400 hover:text-white inline-flex items-center justify-center rounded-xl"
+        aria-label="Close offer"
+      >
+        <Icon name="close" class="text-2xl" />
+      </button>
+
+      <div class="inline-flex items-center gap-x-2 text-amber-400 text-xs font-semibold tracking-[2px] mb-4">
+        <Icon name="star" class="text-base" />
+        <span>BEFORE YOU GO</span>
+      </div>
+
+      <h2 id="exitIntentTitle" class="font-display text-2xl sm:text-3xl font-semibold tracking-tight mb-3">
+        Lock in languageleapenglish.com at {PRICE.formatted}
+      </h2>
+      <p class="text-slate-400 text-[15px] leading-relaxed mb-6">
+        Exact-match .com domains are registered only once. If you are evaluating names for an English-learning,
+        business-English or education brand, this is the one to secure before someone else does.
+      </p>
+
+      <ul class="space-y-2.5 text-sm text-slate-300 mb-7">
+        <li class="flex items-start gap-x-3">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>Escrow.com protects your payment end to end</span>
+        </li>
+        <li class="flex items-start gap-x-3">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>Transfer typically completes within 24 hours</span>
+        </li>
+        <li class="flex items-start gap-x-3">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>Instalment options for qualified buyers</span>
+        </li>
+      </ul>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          type="button"
+          data-open-purchase
+          data-close-exit
+          data-cta="exit-buy-now"
+          class="min-h-12 flex-1 inline-flex items-center justify-center gap-x-2 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold transition"
+        >
+          <Icon name="cart" class="text-lg" />
+          <span>Buy at {PRICE.formatted}</span>
+        </button>
+        <button
+          type="button"
+          data-open-contact
+          data-close-exit
+          data-cta="exit-make-offer"
+          class="min-h-12 flex-1 inline-flex items-center justify-center rounded-2xl border border-slate-600 hover:bg-slate-800 font-semibold transition"
+        >
+          Make an Offer
+        </button>
+      </div>
+
+      <a
+        href={ACQUISITION_MAILTO}
+        data-cta="exit-email"
+        class="mt-4 min-h-12 w-full inline-flex items-center justify-center gap-x-2 text-sm text-slate-400 hover:text-white transition"
+      >
+        <Icon name="mail" class="text-base" />
+        <span>Prefer email? sales@desertrich.com</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'lle_exit_shown_v1';
+
+  function alreadyShown() {
+    try {
+      return sessionStorage.getItem(STORAGE_KEY) === '1';
+    } catch {
+      return true;
+    }
+  }
+
+  function markShown() {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, '1');
+    } catch {
+      /* ignore */
+    }
+  }
+
+  function showExitIntent() {
+    if (alreadyShown()) return;
+    const modal = document.getElementById('exitIntent');
+    const openDialog = document.querySelector('[data-modal]:not([hidden])');
+    if (!modal || openDialog) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth < 768) return;
+
+    markShown();
+    modal.hidden = false;
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    modal.querySelector<HTMLElement>('button, a')?.focus({ preventScroll: true });
+  }
+
+  function closeExitIntent() {
+    const modal = document.getElementById('exitIntent');
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    modal.classList.remove('flex');
+    if (!document.querySelector('[data-modal]:not([hidden])')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  // Desktop: pointer leaving through the top of the viewport.
+  document.addEventListener('mouseout', (e) => {
+    const event = e as MouseEvent;
+    if (event.clientY <= 0 && !event.relatedTarget) showExitIntent();
+  });
+
+  // Mobile / trackpad: fast upward scroll after reading most of the page.
+  let lastY = window.scrollY;
+  window.addEventListener(
+    'scroll',
+    () => {
+      const doc = document.documentElement;
+      const depth = (window.scrollY + window.innerHeight) / doc.scrollHeight;
+      const scrollingUp = window.scrollY < lastY - 12;
+      if (depth > 0.72 && scrollingUp) showExitIntent();
+      lastY = window.scrollY;
+    },
+    { passive: true }
+  );
+
+  // Fallback: engaged visitor still on the page after 60 seconds.
+  window.setTimeout(showExitIntent, 60000);
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest) return;
+    if (target.closest('[data-close-exit]')) {
+      markShown();
+      closeExitIntent();
+    }
+    if (target.id === 'exitIntent') closeExitIntent();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeExitIntent();
+  });
+</script>

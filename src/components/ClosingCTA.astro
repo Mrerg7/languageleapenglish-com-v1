@@ -1,17 +1,47 @@
-<section class="max-w-screen-xl mx-auto px-6 py-20 text-center">
+---
+import { ACQUISITION_MAILTO, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<section class="max-w-screen-xl mx-auto px-6 py-20 text-center" data-reveal>
   <div class="max-w-lg mx-auto">
-    <h3 class="text-3xl font-semibold tracking-tight mb-3">Ready to own the future of English communication?</h3>
-    <p class="text-slate-300 mb-8">This domain will not be available at this price for long. Secure it today and start building your global brand.</p>
+    <div class="inline-flex items-center gap-x-2 text-amber-400 text-xs font-semibold tracking-[2px] mb-4">
+      <Icon name="star" class="text-base" />
+      <span>ONE-OF-ONE ASSET</span>
+    </div>
+
+    <h2 class="text-3xl font-semibold tracking-tight mb-3">Ready to own the future of English communication?</h2>
+    <p class="text-slate-300 mb-8">
+      A .com can only be registered once. This exact-match domain is listed at {PRICE.formatted} and transfers to a
+      single owner — secure it today and start building your global brand.
+    </p>
 
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button onclick="initiatePurchase()"
-              class="inline-flex min-h-11 items-center justify-center gap-x-2 bg-white text-slate-950 font-semibold px-6 sm:px-9 py-3.5 rounded-3xl hover:bg-amber-50 active:bg-white transition text-base">
-        Acquire languageleapenglish.com Now
+      <button
+        type="button"
+        data-open-purchase
+        data-cta="closing-buy-now"
+        class="inline-flex min-h-12 items-center justify-center gap-x-2 bg-white text-slate-950 font-semibold px-6 sm:px-9 py-4 rounded-3xl hover:bg-amber-50 active:bg-white transition text-base"
+      >
+        <Icon name="cart" class="text-lg" />
+        <span>Acquire languageleapenglish.com Now</span>
       </button>
-      <button onclick="showContactModal()"
-              class="inline-flex min-h-11 items-center justify-center gap-x-2 border border-slate-700 hover:bg-slate-900 px-6 sm:px-8 py-3.5 rounded-3xl text-base font-medium transition">
+      <button
+        type="button"
+        data-open-contact
+        data-cta="closing-contact-seller"
+        class="inline-flex min-h-12 items-center justify-center gap-x-2 border border-slate-700 hover:bg-slate-900 px-6 sm:px-8 py-4 rounded-3xl text-base font-medium transition"
+      >
         Contact Seller
       </button>
+      <a
+        href={ACQUISITION_MAILTO}
+        data-cta="closing-email-owner"
+        class="inline-flex min-h-12 items-center justify-center gap-x-2 text-slate-300 hover:text-white px-6 py-4 rounded-3xl text-base underline decoration-slate-600 underline-offset-8 hover:decoration-amber-400 transition"
+      >
+        <Icon name="mail" class="text-lg" />
+        <span>Email the owner</span>
+      </a>
     </div>
   </div>
 </section>

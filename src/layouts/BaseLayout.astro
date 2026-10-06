@@ -1,12 +1,17 @@
 ---
 import '../styles/global.css';
-import { SITE, OG_IMAGE, ACQUISITION_MAILTO, canonicalUrl } from '../config/site';
+import { SITE, OG_IMAGE, PRICE, canonicalUrl } from '../config/site';
+import { FAQS } from '../data/faq';
+import Modals from '../components/Modals.astro';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
   noindex?: boolean;
+  ogType?: string;
+  extraSchema?: Record<string, unknown>[];
+  includeFaqSchema?: boolean;
 }
 
 const {
@@ -14,10 +19,76 @@ const {
   description = SITE.description,
   ogImage = OG_IMAGE,
   noindex = false,
+  ogType = 'website',
+  extraSchema = [],
+  includeFaqSchema = true,
 } = Astro.props;
 
 const canonicalURL = canonicalUrl(Astro.url.pathname);
 const publishedDate = '2026-06-25';
+const modifiedDate = '2026-10-06';
+
+const offer = {
+  '@type': 'Offer',
+  url: SITE.url,
+  price: String(PRICE.amount),
+  priceCurrency: PRICE.currency,
+  priceValidUntil: '2027-01-31',
+  availability: 'https://schema.org/InStock',
+  itemCondition: 'https://schema.org/NewCondition',
+  seller: {
+    '@type': 'Organization',
+    name: SITE.name,
+    email: SITE.email,
+    url: SITE.url,
+  },
+  shippingDetails: {
+    '@type': 'OfferShippingDetails',
+    shippingRate: {
+      '@type': 'MonetaryAmount',
+      value: '0.00',
+      currency: PRICE.currency,
+    },
+    deliveryTime: {
+      '@type': 'ShippingDeliveryTime',
+      handlingTime: {
+        '@type': 'QuantitativeValue',
+        minValue: 0,
+        maxValue: 1,
+        unitCode: 'DAY',
+      },
+      transitTime: {
+        '@type': 'QuantitativeValue',
+        minValue: 0,
+        maxValue: 0,
+        unitCode: 'DAY',
+      },
+    },
+    shippingDestination: {
+      '@type': 'DefinedRegion',
+      addressCountry: 'US',
+    },
+  },
+  hasMerchantReturnPolicy: {
+    '@type': 'MerchantReturnPolicy',
+    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+    returnMethod: 'https://schema.org/ReturnByMail',
+    returnFees: 'https://schema.org/FreeReturn',
+    applicableCountry: 'US',
+    merchantReturnDays: 0,
+  },
+};
+
+const segments = canonicalURL.replace(SITE.url, '').split('/').filter(Boolean);
+const breadcrumbItems = [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+  ...segments.map((segment, index) => ({
+    '@type': 'ListItem',
+    position: index + 2,
+    name: segment.replace(/-/g, ' '),
+    item: `${SITE.url}${segments.slice(0, index + 1).join('/')}/`,
+  })),
+];
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -29,17 +100,24 @@ const structuredData = {
       name: SITE.name,
       description,
       inLanguage: 'en-US',
+      publisher: { '@id': `${SITE.url}#organization` },
     },
     {
       '@type': 'WebPage',
-      '@id': `${SITE.url}#webpage`,
-      url: SITE.url,
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
       name: title,
       description,
       isPartOf: { '@id': `${SITE.url}#website` },
       datePublished: publishedDate,
-      dateModified: publishedDate,
+      dateModified: modifiedDate,
       inLanguage: 'en-US',
+      breadcrumb: { '@id': `${canonicalURL}#breadcrumb` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalURL}#breadcrumb`,
+      itemListElement: breadcrumbItems,
     },
     {
       '@type': 'Product',
@@ -50,72 +128,12 @@ const structuredData = {
       url: SITE.url,
       image: OG_IMAGE,
       category: 'Premium Domain Name',
+      sku: 'languageleapenglish.com',
       brand: {
         '@type': 'Brand',
-        name: 'languageleapenglish.com',
+        name: SITE.name,
       },
-      offers: {
-        '@type': 'Offer',
-        url: ACQUISITION_MAILTO,
-        price: '19500',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock',
-        seller: {
-          '@type': 'Organization',
-          name: SITE.name,
-          email: SITE.email,
-        },
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingRate: {
-            '@type': 'MonetaryAmount',
-            value: '0.00',
-            currency: 'USD',
-          },
-          deliveryTime: {
-            '@type': 'ShippingDeliveryTime',
-            handlingTime: {
-              '@type': 'QuantitativeValue',
-              minValue: 0,
-              maxValue: 1,
-              unitCode: 'DAY',
-            },
-            transitTime: {
-              '@type': 'QuantitativeValue',
-              minValue: 0,
-              maxValue: 0,
-              unitCode: 'DAY',
-            },
-          },
-          shippingDestination: {
-            '@type': 'DefinedRegion',
-            addressCountry: 'US',
-          },
-        },
-        hasMerchantReturnPolicy: {
-          '@type': 'MerchantReturnPolicy',
-          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          returnMethod: 'https://schema.org/ReturnByMail',
-          returnFees: 'https://schema.org/FreeReturn',
-          applicableCountry: 'US',
-          merchantReturnDays: 0,
-        },
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        bestRating: '5',
-        ratingCount: '1',
-      },
-      review: {
-        '@type': 'Review',
-        author: {
-          '@type': 'Organization',
-          name: SITE.name,
-        },
-        reviewBody:
-          'Powerful, brandable .com domain at the intersection of English language education and global business — an unmatched foundation for an edtech or language-learning venture.',
-      },
+      offers: offer,
     },
     {
       '@type': 'Organization',
@@ -123,6 +141,7 @@ const structuredData = {
       name: SITE.name,
       url: SITE.url,
       email: SITE.email,
+      areaServed: 'Worldwide',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Phoenix',
@@ -130,6 +149,23 @@ const structuredData = {
         addressCountry: 'US',
       },
     },
+    ...(includeFaqSchema
+      ? [
+          {
+            '@type': 'FAQPage',
+            '@id': `${canonicalURL}#faq`,
+            mainEntity: FAQS.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          },
+        ]
+      : []),
+    ...extraSchema,
   ],
 };
 ---
@@ -138,17 +174,23 @@ const structuredData = {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
     <meta name="google-site-verification" content={SITE.googleSiteVerification} />
+    <meta name="theme-color" content="#020617" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="format-detection" content="telephone=no" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content={noindex ? 'noindex' : 'index, follow, max-image-preview:large'} />
+    <meta name="keywords" content={SITE.keywords.join(', ')} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.brand} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -166,10 +208,86 @@ const structuredData = {
     <meta name="twitter:image:alt" content="languageleapenglish.com — Premium Domain for English Language Mastery & Education" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="preload" as="image" href="/hero.webp" type="image/webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      href="/fonts/inter-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/space-grotesk-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:bg-amber-500 focus:text-slate-950 focus:px-5 focus:py-3 focus:rounded-xl focus:font-semibold"
+    >
+      Skip to content
+    </a>
     <slot />
+    <Modals />
+
+    <script>
+      import { track } from '../lib/analytics';
+
+      track('page_view', { path: location.pathname });
+
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (!target.closest) return;
+        const el = target.closest<HTMLElement>('[data-cta]');
+        if (el) {
+          track('cta_click', {
+            cta: el.dataset.cta || 'unknown',
+            label: (el.textContent || '').trim().slice(0, 60),
+          });
+        }
+        if (target.closest('[data-open-purchase]')) track('modal_open', { modal: 'purchase' });
+        if (target.closest('[data-open-contact]')) track('modal_open', { modal: 'contact' });
+      });
+
+      document.addEventListener('submit', (e) => {
+        const form = e.target as HTMLFormElement;
+        if (form.id === 'offerForm') track('form_submit', { form: 'offer' });
+      });
+    </script>
+
+    <script>
+      // Progressive scroll-reveal: content stays visible if JS never runs.
+      const targets = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window && targets.length) {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) {
+          targets.forEach((el) => el.classList.add('is-revealed'));
+        } else {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('is-revealed');
+                  io.unobserve(entry.target);
+                }
+              });
+            },
+            { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+          );
+          targets.forEach((el) => io.observe(el));
+        }
+      } else {
+        targets.forEach((el) => el.classList.add('is-revealed'));
+      }
+    </script>
   </body>
 </html>

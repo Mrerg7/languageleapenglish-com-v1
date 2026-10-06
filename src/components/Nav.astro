@@ -1,39 +1,148 @@
 ---
-import { ACQUISITION_MAILTO, SITE } from '../config/site';
+import { PRICE, SITE } from '../config/site';
+import Icon from './Icon.astro';
+
+const links = [
+  { href: '/#stats', label: 'The Numbers' },
+  { href: '/#why', label: 'Why This Domain' },
+  { href: '/#value', label: 'Perfect For' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/insights/', label: 'Insights' },
+];
 ---
 
-<nav id="nav" class="bg-slate-950/95 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-50 transition-all">
+<nav
+  id="nav"
+  class="bg-slate-950/95 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-50 transition-all"
+  aria-label="Main"
+>
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6">
     <div class="flex items-center justify-between gap-x-3 min-h-16 sm:h-20 py-2 sm:py-0">
-      <a href="/" class="flex min-h-11 items-center gap-x-2.5 min-w-0" aria-label="languageleapenglish.com home">
-        <div class="w-9 h-9 flex-shrink-0 bg-amber-500 rounded-xl flex items-center justify-center shadow-inner">
-          <i class="fa-solid fa-globe text-slate-950 text-lg"></i>
-        </div>
-        <div class="min-w-0 leading-none">
-          <span class="font-display text-lg sm:text-2xl font-semibold tracking-tighter">languageleap</span>
-          <span class="font-display text-lg sm:text-2xl font-semibold tracking-tighter text-amber-400">english</span>
-          <span class="text-[10px] sm:text-xs font-mono text-slate-500 ml-0.5 align-super">.com</span>
-        </div>
+      <a href="/" class="flex min-h-12 items-center gap-x-2.5 min-w-0" aria-label={`${SITE.name} home`}>
+        <span class="w-9 h-9 flex-shrink-0 bg-amber-500 rounded-xl flex items-center justify-center">
+          <Icon name="globe" class="text-slate-950 text-lg" />
+        </span>
+        <span class="min-w-0 leading-none">
+          <span class="font-display text-lg sm:text-2xl font-semibold tracking-tighter">languageleap</span><span
+            class="font-display text-lg sm:text-2xl font-semibold tracking-tighter text-amber-400">english</span
+          ><span class="text-[10px] sm:text-xs font-mono text-slate-400 ml-0.5 align-super">.com</span>
+        </span>
       </a>
 
-      <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
-        <a href="#stats" class="hover:text-amber-400 transition-colors">The Numbers</a>
-        <a href="#why" class="hover:text-amber-400 transition-colors">Why This Domain</a>
-        <a href="#value" class="hover:text-amber-400 transition-colors">Perfect For</a>
+      <div class="hidden md:flex items-center gap-x-7 text-sm font-medium">
+        {links.map((link) => (
+          <a href={link.href} class="hover:text-amber-400 transition-colors min-h-12 inline-flex items-center">
+            {link.label}
+          </a>
+        ))}
       </div>
 
       <div class="flex items-center gap-x-2 sm:gap-x-3 flex-shrink-0">
-        <button onclick="showContactModal()"
-                class="hidden sm:inline-flex min-h-11 items-center px-5 py-2.5 text-sm font-semibold rounded-2xl border border-slate-700 hover:bg-slate-900 transition-all active:scale-[0.985]">
+        <button
+          type="button"
+          data-open-contact
+          class="hidden sm:inline-flex min-h-12 items-center px-5 py-2.5 text-sm font-semibold rounded-2xl border border-slate-700 hover:bg-slate-900 transition-all active:scale-[0.985]"
+        >
           Make an Offer
         </button>
-        <button onclick="initiatePurchase()"
-                class="inline-flex min-h-11 items-center gap-x-2 px-3 sm:px-6 py-2.5 text-sm font-semibold bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 rounded-2xl transition-all shadow-lg shadow-amber-500/25 active:scale-[0.985]">
-          <i class="fa-solid fa-shopping-cart"></i>
-          <span class="sm:hidden">$19,500</span>
-          <span class="hidden sm:inline">Acquire for $19,500</span>
+        <button
+          type="button"
+          data-open-purchase
+          class="inline-flex min-h-12 items-center gap-x-2 px-3 sm:px-6 py-2.5 text-sm font-semibold bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 rounded-2xl transition-all shadow-lg shadow-amber-500/25 active:scale-[0.985]"
+        >
+          <Icon name="cart" class="text-base" />
+          <span class="sm:hidden">{PRICE.formatted}</span>
+          <span class="hidden sm:inline">Acquire for {PRICE.formatted}</span>
+        </button>
+        <button
+          type="button"
+          id="navToggle"
+          class="md:hidden inline-flex min-h-12 min-w-12 items-center justify-center rounded-2xl border border-slate-700 hover:bg-slate-900 transition"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+        >
+          <Icon name="menu" class="text-xl" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="md:hidden hidden border-t border-slate-800 bg-slate-950/98 backdrop-blur-lg">
+    <div class="px-4 sm:px-6 py-4 flex flex-col gap-y-1">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          data-mobile-link
+          class="min-h-12 flex items-center px-2 text-[15px] font-medium text-slate-300 hover:text-amber-400 rounded-xl transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="mt-3 flex flex-col gap-y-2.5 pt-3 border-t border-slate-800">
+        <button
+          type="button"
+          data-open-contact
+          data-mobile-link
+          class="min-h-12 w-full inline-flex items-center justify-center rounded-2xl border border-slate-700 hover:bg-slate-900 text-sm font-semibold transition"
+        >
+          Make an Offer
+        </button>
+        <button
+          type="button"
+          data-open-purchase
+          data-mobile-link
+          class="min-h-12 w-full inline-flex items-center justify-center gap-x-2 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-sm font-semibold transition"
+        >
+          <Icon name="cart" class="text-base" />
+          <span>Acquire for {PRICE.formatted}</span>
         </button>
       </div>
     </div>
   </div>
 </nav>
+
+<script>
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+
+  const setScrolled = () => {
+    if (window.scrollY > 50) {
+      nav?.classList.add('nav-scrolled', 'bg-slate-950/95');
+    } else {
+      nav?.classList.remove('nav-scrolled');
+    }
+  };
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
+
+  const closeMenu = () => {
+    menu?.classList.add('hidden');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', 'Open menu');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu?.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+    }
+  });
+
+  document.querySelectorAll('[data-mobile-link]').forEach((el) => {
+    el.addEventListener('click', () => closeMenu());
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) closeMenu();
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+import { ACQUISITION_MAILTO, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<div
+  class="sticky-cta md:hidden safe-pb border-t border-slate-700 bg-slate-950/95 backdrop-blur-lg"
+  data-sticky-cta
+>
+  <div class="px-4 py-3 flex items-center gap-3">
+    <div class="min-w-0 flex-1">
+      <div class="text-[11px] text-slate-400 leading-tight truncate">languageleapenglish.com</div>
+      <div class="text-lg font-bold text-white leading-tight">
+        {PRICE.formatted} <span class="text-[11px] font-normal text-slate-400">BIN</span>
+      </div>
+    </div>
+    <a
+      href={ACQUISITION_MAILTO}
+      data-cta="sticky-email"
+      class="min-h-12 min-w-12 inline-flex items-center justify-center px-4 rounded-2xl border border-slate-700 text-sm font-semibold text-slate-200 hover:bg-slate-900 transition"
+      aria-label="Email the owner"
+    >
+      <Icon name="mail" class="text-lg" />
+    </a>
+    <button
+      type="button"
+      data-open-contact
+      data-cta="sticky-offer"
+      class="min-h-12 inline-flex items-center justify-center px-4 rounded-2xl border border-slate-700 text-sm font-semibold text-slate-200 hover:bg-slate-900 transition"
+    >
+      Offer
+    </button>
+    <button
+      type="button"
+      data-open-purchase
+      data-cta="sticky-buy-now"
+      class="min-h-12 inline-flex items-center justify-center gap-x-2 px-5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 text-sm font-bold transition shadow-lg shadow-amber-500/25"
+    >
+      <Icon name="cart" class="text-base" />
+      <span>Buy</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
+  if (bar) {
+    const hero = document.querySelector('header');
+    const update = () => {
+      const threshold = hero ? hero.offsetHeight * 0.6 : 400;
+      bar.classList.toggle('is-visible', window.scrollY > threshold);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+  }
+</script>

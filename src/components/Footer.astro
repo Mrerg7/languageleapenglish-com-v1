@@ -1,5 +1,6 @@
 ---
-import { ACQUISITION_MAILTO, SITE } from '../config/site';
+import { ACQUISITION_MAILTO, SITE, PRICE } from '../config/site';
+import Icon from './Icon.astro';
 ---
 
 <footer class="border-t border-white/10 bg-slate-950">
@@ -29,39 +30,77 @@ import { ACQUISITION_MAILTO, SITE } from '../config/site';
         </div>
 
         <div class="glass rounded-2xl p-6 sm:p-8 border border-white/10" style="background: rgba(10, 10, 10, 0.88); backdrop-filter: blur(22px);">
-          <p class="text-xs uppercase tracking-[2px] text-slate-500 font-semibold mb-2">Acquisition Contact</p>
+          <p class="text-xs uppercase tracking-[2px] text-slate-400 font-semibold mb-2">Acquisition Contact</p>
           <a
             href={ACQUISITION_MAILTO}
-            class="flex min-h-11 items-center text-xl sm:text-2xl lg:text-3xl font-display text-white hover:text-amber-400 transition-colors break-all"
+            data-cta="footer-inquire"
+            class="flex min-h-12 items-center text-xl sm:text-2xl lg:text-3xl font-display text-white hover:text-amber-400 transition-colors break-all"
           >
             {SITE.email}
           </a>
           <a
             href={ACQUISITION_MAILTO}
-            class="mt-6 inline-flex min-h-11 w-full items-center justify-center gap-x-3 px-6 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold rounded-2xl hover:brightness-110 transition-all"
+            data-cta="footer-inquire"
+            class="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-x-3 px-6 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-extrabold rounded-2xl hover:brightness-110 transition-all"
           >
             <span>Inquire About Acquisition</span>
-            <i class="fa-solid fa-arrow-right"></i>
+            <Icon name="arrow-right" />
           </a>
-          <p class="mt-4 text-xs text-slate-500 text-center tracking-wide">
+          <p class="mt-4 text-xs text-slate-400 text-center tracking-wide">
             Confidential inquiries • Response within 24 hours
           </p>
         </div>
       </div>
     </div>
 
+    <!-- Internal links -->
+    <nav aria-label="Footer" class="mb-10">
+      <ul class="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        <li>
+          <a href="/" class="text-slate-400 hover:text-amber-400 transition-colors inline-flex min-h-12 items-center">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/#faq" class="text-slate-400 hover:text-amber-400 transition-colors inline-flex min-h-12 items-center">
+            Acquisition FAQ
+          </a>
+        </li>
+        <li>
+          <a href="/insights/" class="text-slate-400 hover:text-amber-400 transition-colors inline-flex min-h-12 items-center">
+            Domain Insights
+          </a>
+        </li>
+        <li>
+          <a href="/sitemap-index.xml" class="text-slate-400 hover:text-amber-400 transition-colors inline-flex min-h-12 items-center">
+            Sitemap
+          </a>
+        </li>
+        <li>
+          <a
+            href={ACQUISITION_MAILTO}
+            data-cta="footer-email"
+            class="text-slate-400 hover:text-amber-400 transition-colors inline-flex min-h-12 items-center"
+          >
+            Contact the Owner
+          </a>
+        </li>
+      </ul>
+    </nav>
+
     <!-- Disclaimer -->
-    <p class="text-xs text-slate-500 leading-relaxed max-w-4xl mb-10">
-      This website is for demonstration and informational purposes only. It does not constitute an offer of services,
-      a commitment to deploy, or a guarantee of outcomes. All statistics, projections, and references to specific
-      technologies are based on publicly available information as of June 25, 2026 and are subject to change.
+    <p class="text-xs text-slate-400 leading-relaxed max-w-4xl mb-10">
+      This website is an owner-operated listing for a single domain name. It does not constitute an offer of services,
+      a commitment to deploy, or a guarantee of outcomes. All statistics and projections are drawn from publicly
+      available sources current as of October 2026 and are subject to change. The domain is sold as-is, with transfer
+      handled through Escrow.com.
     </p>
 
     <!-- Bottom bar -->
-    <div class="pt-8 border-t border-white/10 text-xs text-slate-500 flex flex-col md:flex-row gap-y-4 items-center justify-between">
+    <div class="pt-8 border-t border-white/10 text-xs text-slate-400 flex flex-col md:flex-row gap-y-4 items-center justify-between">
       <div>&copy; 2026 languageleapenglish.com. All rights reserved.</div>
       <div class="flex items-center gap-x-5">
-        <span>Premium domain listing by owner</span>
+        <span>Premium domain listing by owner • {PRICE.formatted} BIN</span>
       </div>
     </div>
   </div>

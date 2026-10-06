@@ -1,0 +1,335 @@
+---
+import { ACQUISITION_MAILTO, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<div
+  id="purchaseModal"
+  data-modal
+  hidden
+  class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] items-center justify-center p-4 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="purchaseModalTitle"
+>
+  <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full my-auto overflow-hidden shadow-2xl">
+    <div class="px-6 sm:px-7 pt-6 sm:pt-7 pb-5">
+      <div class="flex justify-between items-start mb-5 gap-4">
+        <div>
+          <div id="purchaseModalTitle" class="font-display text-2xl sm:text-3xl font-semibold tracking-tighter">
+            Secure This Domain
+          </div>
+          <div class="text-emerald-400 text-sm font-medium mt-0.5">Escrow-protected transfer</div>
+        </div>
+        <button
+          type="button"
+          data-close-modal
+          class="min-h-12 min-w-12 -mt-2 -mr-2 text-slate-400 hover:text-white inline-flex items-center justify-center rounded-xl"
+          aria-label="Close purchase dialog"
+        >
+          <Icon name="close" class="text-2xl" />
+        </button>
+      </div>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-5 mb-6">
+        <div class="flex justify-between items-baseline gap-3">
+          <div class="text-sm text-slate-400">Buy It Now Price</div>
+          <div class="text-3xl sm:text-4xl font-bold tracking-tighter">{PRICE.formatted}</div>
+        </div>
+        <div class="text-[10px] text-emerald-400/80 mt-1">
+          One-time payment • {PRICE.currency} • Full rights included
+        </div>
+      </div>
+
+      <ul class="space-y-3 text-sm">
+        <li class="flex items-start gap-x-3 text-slate-300">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>Full ownership of languageleapenglish.com</span>
+        </li>
+        <li class="flex items-start gap-x-3 text-slate-300">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>Fast, secure transfer via Escrow.com</span>
+        </li>
+        <li class="flex items-start gap-x-3 text-slate-300">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>No hidden fees or renewals beyond the standard registrar cost</span>
+        </li>
+        <li class="flex items-start gap-x-3 text-slate-300">
+          <span class="text-emerald-400 mt-0.5"><Icon name="check" class="text-base" /></span>
+          <span>Immediate registrar push or auth code delivery</span>
+        </li>
+      </ul>
+
+      <div class="mt-5 flex items-start gap-x-2 text-[11px] text-slate-400">
+        <span class="text-emerald-400"><Icon name="shield" class="text-base" /></span>
+        <span>SSL-secured page • Funds stay in escrow until the transfer is confirmed</span>
+      </div>
+    </div>
+
+    <div class="bg-slate-950 px-6 sm:px-7 py-5 border-t border-slate-800 flex flex-col gap-y-3">
+      <a
+        href={ACQUISITION_MAILTO}
+        data-track="buy-now"
+        class="min-h-12 w-full rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 transition font-semibold text-white flex items-center justify-center gap-x-2 px-4"
+      >
+        <Icon name="shield" class="text-lg" />
+        <span>Start Secure Purchase</span>
+      </a>
+      <button
+        type="button"
+        data-close-modal
+        data-open-contact
+        class="min-h-12 w-full text-sm font-medium text-slate-400 hover:text-slate-200 transition"
+      >
+        I want to make an offer instead
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  id="contactModal"
+  data-modal
+  hidden
+  class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] items-center justify-center p-4 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="contactModalTitle"
+>
+  <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full my-auto overflow-hidden shadow-2xl">
+    <div class="px-6 sm:px-7 pt-6 sm:pt-7 pb-6">
+      <div class="flex justify-between items-start mb-6 gap-4">
+        <div>
+          <div id="contactModalTitle" class="font-display text-xl sm:text-2xl font-semibold tracking-tight">
+            Make an Offer or Inquire
+          </div>
+          <div class="text-slate-400 text-xs mt-1">Private, no obligation — response within 24 hours</div>
+        </div>
+        <button
+          type="button"
+          data-close-modal
+          class="min-h-12 min-w-12 -mt-2 -mr-2 text-slate-400 hover:text-white inline-flex items-center justify-center rounded-xl"
+          aria-label="Close inquiry dialog"
+        >
+          <Icon name="close" class="text-2xl" />
+        </button>
+      </div>
+
+      <form id="offerForm">
+        <div class="space-y-4">
+          <div>
+            <label for="name" class="text-xs tracking-widest font-medium text-slate-400 block mb-1.5">YOUR NAME</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              autocomplete="name"
+              class="w-full min-h-12 bg-slate-950 border border-slate-700 focus:border-amber-500 rounded-2xl px-5 py-3 text-sm placeholder:text-slate-500 outline-none"
+            />
+          </div>
+          <div>
+            <label for="email" class="text-xs tracking-widest font-medium text-slate-400 block mb-1.5">EMAIL ADDRESS</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+              class="w-full min-h-12 bg-slate-950 border border-slate-700 focus:border-amber-500 rounded-2xl px-5 py-3 text-sm placeholder:text-slate-500 outline-none"
+            />
+          </div>
+          <div>
+            <label for="message" class="text-xs tracking-widest font-medium text-slate-400 block mb-1.5">
+              YOUR OFFER / MESSAGE
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="3"
+              placeholder="I'd like to offer $XX,XXX or discuss..."
+              required
+              class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 rounded-2xl px-5 py-3 text-sm placeholder:text-slate-500 outline-none resize-y"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <button
+            type="button"
+            data-close-modal
+            class="min-h-12 sm:flex-1 rounded-2xl border border-slate-700 hover:bg-slate-800 text-sm font-medium transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="min-h-12 sm:flex-1 rounded-2xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-semibold text-sm transition"
+          >
+            Send Private Inquiry
+          </button>
+        </div>
+      </form>
+
+      <p class="text-center text-[11px] text-slate-400 mt-5">
+        Prefer email? <a href={ACQUISITION_MAILTO} class="underline hover:text-amber-400">sales@desertrich.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { ACQUISITION_MAILTO, SITE } from '../config/site';
+
+  const purchaseModal = document.getElementById('purchaseModal');
+  const contactModal = document.getElementById('contactModal');
+  let lastFocused: HTMLElement | null = null;
+
+  function openModal(modal: HTMLElement | null) {
+    if (!modal) return;
+    lastFocused = document.activeElement as HTMLElement;
+    modal.hidden = false;
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    const focusTarget = modal.querySelector<HTMLElement>('input, textarea, a[href], button');
+    focusTarget?.focus({ preventScroll: true });
+  }
+
+  function closeModal(modal: HTMLElement | null) {
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    modal.classList.remove('flex');
+    lastFocused?.focus?.({ preventScroll: true });
+  }
+
+  function closeAll() {
+    closeModal(purchaseModal);
+    closeModal(contactModal);
+    if (!document.querySelector('[data-modal]:not([hidden])')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  function showPurchaseModal() {
+    openModal(purchaseModal);
+  }
+
+  function showContactModal() {
+    openModal(contactModal);
+  }
+
+  function appendOverlay(html: string) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html.trim();
+    const node = wrapper.firstElementChild as HTMLElement;
+    document.body.appendChild(node);
+    const dismiss = node.querySelector<HTMLElement>('[data-dismiss]');
+    dismiss?.addEventListener('click', () => {
+      node.remove();
+      document.body.style.overflow = '';
+    });
+    dismiss?.focus();
+    return node;
+  }
+
+  function completePurchase() {
+    closeModal(purchaseModal);
+    document.body.style.overflow = 'hidden';
+    appendOverlay(`
+      <div class="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-[200] p-6 overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="max-w-md w-full my-auto bg-slate-900 border border-emerald-500/30 rounded-3xl p-7 sm:p-8 text-center">
+          <div class="mx-auto w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center mb-6 text-emerald-400">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3 class="text-2xl font-semibold tracking-tight mb-2">Thank You!</h3>
+          <p class="text-slate-300 mb-6">Your interest in acquiring <span class="font-mono text-amber-400">languageleapenglish.com</span> has been noted. A representative will contact you within a few hours to complete the secure escrow process.</p>
+          <div class="text-xs bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-6 text-left text-slate-400">
+            <strong class="text-emerald-400">Next steps:</strong><br>
+            1. Escrow.com transaction initiated<br>
+            2. Domain push / auth code provided<br>
+            3. Full ownership transferred
+          </div>
+          <button type="button" data-dismiss class="min-h-12 w-full text-sm font-semibold bg-white text-slate-950 rounded-2xl hover:bg-amber-50 active:bg-white transition">Return to Site</button>
+        </div>
+      </div>
+    `);
+  }
+
+  function submitOfferForm(e: Event) {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const name = (form.querySelector('#name') as HTMLInputElement)?.value || '';
+    const email = (form.querySelector('#email') as HTMLInputElement)?.value || '';
+    const message = (form.querySelector('#message') as HTMLTextAreaElement)?.value || '';
+    const subject = `languageleapenglish.com offer / inquiry from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}\n`;
+    const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    closeModal(contactModal);
+    document.body.style.overflow = 'hidden';
+
+    appendOverlay(`
+      <div class="fixed inset-0 bg-black/80 backdrop-blur flex items-center justify-center z-[200] p-6 overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="max-w-sm w-full my-auto bg-slate-900 border border-slate-700 rounded-3xl p-7 sm:p-8 text-center">
+          <div class="text-amber-400 mb-5 flex justify-center">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3V5Zm0 1 9 6 9-6"/></svg>
+          </div>
+          <h3 class="font-semibold text-xl mb-2">Inquiry Ready</h3>
+          <p class="text-sm text-slate-300 mb-6">Thanks${name ? `, ${name.split(' ')[0]}` : ''} — your email app should now open with your inquiry pre-filled. Send it and we reply personally within 24 hours.</p>
+          <a href="${mailto}" class="min-h-12 w-full rounded-2xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-sm transition inline-flex items-center justify-center">Open my email</a>
+          <button type="button" data-dismiss class="min-h-12 w-full mt-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-sm font-medium transition">Close</button>
+          <div class="mt-4 text-[11px] text-slate-400 break-all">Or email directly: <a href="${ACQUISITION_MAILTO}" class="underline hover:text-amber-400">${SITE.email}</a></div>
+        </div>
+      </div>
+    `);
+
+    window.location.href = mailto;
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest) return;
+
+    const opener = target.closest('[data-open-purchase]');
+    if (opener) {
+      e.preventDefault();
+      if (purchaseModal?.hidden === false) return;
+      showPurchaseModal();
+      return;
+    }
+
+    const contact = target.closest('[data-open-contact]');
+    if (contact && !target.closest('[data-close-modal]')) {
+      e.preventDefault();
+      showContactModal();
+      return;
+    }
+
+    const closer = target.closest('[data-close-modal]');
+    if (closer) {
+      e.preventDefault();
+      const alsoContact = closer.hasAttribute('data-open-contact');
+      closeModal(purchaseModal);
+      closeModal(contactModal);
+      document.body.style.overflow = '';
+      if (alsoContact) showContactModal();
+    }
+  });
+
+  document.getElementById('offerForm')?.addEventListener('submit', submitOfferForm);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-modal]').forEach((modal) => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeAll();
+    });
+  });
+
+  (window as any).showPurchaseModal = showPurchaseModal;
+  (window as any).hidePurchaseModal = closeAll;
+  (window as any).showContactModal = showContactModal;
+  (window as any).hideContactModal = closeAll;
+  (window as any).completePurchase = completePurchase;
+</script>

@@ -1,18 +1,20 @@
 ---
-import { cfImageUrl, CF_IMAGES, SITE } from '../config/site';
+import { PRICE } from '../config/site';
+import Icon from './Icon.astro';
 
-const heroBg = cfImageUrl(CF_IMAGES.heroImageId);
+const heroBg = '/hero.webp';
 ---
 
 <header
-  class="hero-bg min-h-[100dvh] flex items-center relative pt-16 md:pt-0"
+  class="hero-bg min-h-[100dvh] flex items-center relative pt-20 md:pt-0"
   style={`background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.75)), url('${heroBg}');`}
 >
-  <div class="max-w-screen-xl mx-auto px-6 pb-12 md:pb-0">
+  <div class="max-w-screen-xl mx-auto px-6 pb-28 md:pb-0 w-full">
     <div class="max-w-4xl">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-[1.5px] px-4 py-1.5 rounded-3xl mb-6">
-        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+      <div
+        class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold tracking-[1.5px] px-4 py-2 rounded-3xl mb-6"
+      >
+        <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" aria-hidden="true"></span>
         <span>PREMIUM .COM DOMAIN • AVAILABLE NOW</span>
       </div>
 
@@ -21,41 +23,64 @@ const heroBg = cfImageUrl(CF_IMAGES.heroImageId);
       </h1>
 
       <p class="max-w-2xl text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-slate-200 mb-8">
-        Own the definitive brand for <span class="font-medium text-white">English language mastery</span> in a globalized world.
+        Own the definitive brand for <span class="font-medium text-white">English language mastery</span> in a
+        globalized world.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10">
-        <button onclick="initiatePurchase()"
-                class="group w-full sm:w-auto inline-flex min-h-11 items-center justify-center gap-x-3 bg-white hover:bg-amber-50 active:bg-white text-slate-950 font-semibold text-base sm:text-lg px-6 sm:px-10 py-4 rounded-3xl transition-all shadow-2xl active:scale-[0.985]">
-          <span>Secure This Domain — $19,500</span>
-          <i class="fa-solid fa-arrow-right group-active:translate-x-1 transition"></i>
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
+        <button
+          type="button"
+          data-open-purchase
+          data-cta="hero-buy-now"
+          class="group w-full sm:w-auto inline-flex min-h-12 items-center justify-center gap-x-3 bg-white hover:bg-amber-50 active:bg-white text-slate-950 font-semibold text-base sm:text-lg px-6 sm:px-10 py-4 rounded-3xl transition-all shadow-2xl active:scale-[0.985]"
+        >
+          <span>Secure This Domain — {PRICE.formatted}</span>
+          <Icon name="arrow-right" class="transition group-active:translate-x-1" />
         </button>
 
-        <button onclick="document.getElementById('stats').scrollIntoView({ behavior: 'smooth' })"
-                class="w-full sm:w-auto inline-flex min-h-11 items-center justify-center gap-x-2 px-6 sm:px-8 py-4 text-base sm:text-lg font-medium border border-white/30 hover:bg-white/10 rounded-3xl transition-all">
+        <a
+          href="#stats"
+          data-cta="hero-see-data"
+          class="w-full sm:w-auto inline-flex min-h-12 items-center justify-center gap-x-2 px-6 sm:px-8 py-4 text-base sm:text-lg font-medium border border-white/30 hover:bg-white/10 rounded-3xl transition-all"
+        >
           <span>See the data</span>
+        </a>
+
+        <button
+          type="button"
+          data-open-contact
+          data-cta="hero-make-offer"
+          class="w-full sm:w-auto inline-flex min-h-12 items-center justify-center gap-x-2 px-6 sm:px-8 py-4 text-base sm:text-lg font-medium text-slate-300 hover:text-white underline decoration-white/30 underline-offset-8 hover:decoration-white/70 transition-all"
+        >
+          <span>Make an offer</span>
         </button>
       </div>
 
-      <div class="flex items-start sm:items-center gap-x-4 sm:gap-x-8 text-sm">
-        <div class="flex -space-x-2 flex-shrink-0">
-          <div class="w-7 h-7 bg-slate-300 rounded-full ring-2 ring-slate-950 overflow-hidden"><img src="https://i.pravatar.cc/28?img=28" alt="" /></div>
-          <div class="w-7 h-7 bg-slate-300 rounded-full ring-2 ring-slate-950 overflow-hidden"><img src="https://i.pravatar.cc/28?img=47" alt="" /></div>
-          <div class="w-7 h-7 bg-slate-300 rounded-full ring-2 ring-slate-950 overflow-hidden"><img src="https://i.pravatar.cc/28?img=12" alt="" /></div>
-        </div>
-        <div class="text-slate-400 text-sm leading-snug">
-          Acquired by forward-thinking founders &amp; edtech teams
-        </div>
-      </div>
+      <ul class="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-slate-300">
+        <li class="flex items-center gap-x-2">
+          <span class="text-emerald-400"><Icon name="shield" class="text-base" /></span>
+          Escrow.com protected transfer
+        </li>
+        <li class="flex items-center gap-x-2">
+          <span class="text-emerald-400"><Icon name="clock" class="text-base" /></span>
+          Typical transfer time: 24 hours
+        </li>
+        <li class="flex items-center gap-x-2">
+          <span class="text-emerald-400"><Icon name="key" class="text-base" /></span>
+          One owner, one .com — this one
+        </li>
+      </ul>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 hidden md:block">
-    <div onclick="document.getElementById('stats').scrollIntoView({ behavior: 'smooth' })"
-         class="flex flex-col items-center cursor-pointer group">
+    <a
+      href="#stats"
+      class="flex flex-col items-center cursor-pointer group"
+      aria-label="Scroll to market data"
+    >
       <span class="text-[10px] tracking-[2px] text-white/60 mb-1.5 group-hover:text-white/90 transition">SCROLL TO EXPLORE</span>
-      <i class="fa-solid fa-chevron-down text-white/60 group-hover:text-white/90 transition"></i>
-    </div>
+      <Icon name="chevron-down" class="text-white/60 group-hover:text-white/90 text-lg transition" />
+    </a>
   </div>
 </header>

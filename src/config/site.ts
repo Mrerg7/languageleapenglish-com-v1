@@ -1,13 +1,33 @@
 export const SITE = {
   name: 'languageleapenglish.com',
-  title: 'languageleapenglish.com | Premium Domain For Sale — English Language Mastery Brand',
+  brand: 'LanguageLeap English',
+  title: 'languageleapenglish.com | Premium Domain for Sale | LanguageLeap English',
   description:
-    'Own languageleapenglish.com — the premium brand for English language mastery. 1.5B+ speakers, $45B+ market. High-acquisition domain perfect for business English, language platforms, corporate training & global education. Priced at $19,500.',
+    'languageleapenglish.com is for sale at $19,500 USD — a premium exact-match .com for English language learning, business English and global education brands. Escrow-protected transfer in 24 hours. Enquire today.',
+  keywords: [
+    'buy .com domains',
+    'domain marketplace',
+    'languageleapenglish.com for sale',
+    'premium domain names',
+    'investment domains',
+    'english learning domain for sale',
+    'education domain names',
+    'business english domain',
+    'buy premium domain',
+    'escrow domain transfer',
+  ],
   url: 'https://languageleapenglish.com/',
   email: 'sales@desertrich.com',
   locale: 'en_US',
   location: 'Arizona',
   googleSiteVerification: 'l9ss_Z9bsyW8fPTtmawyDfFucZw5GvZ-D4trzk_EUdE',
+} as const;
+
+/** Buy-it-now price for the domain, formatted at call sites. */
+export const PRICE = {
+  amount: 19500,
+  currency: 'USD',
+  formatted: '$19,500',
 } as const;
 
 /** Build a canonical URL that always uses the apex HTTPS host and trailing slashes. */

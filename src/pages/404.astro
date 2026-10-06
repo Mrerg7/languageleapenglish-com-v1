@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { ACQUISITION_MAILTO, PRICE } from '../config/site';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout
+  title={`Page not found | languageleapenglish.com — Premium Domain for Sale`}
+  description="The page you requested does not exist. Return to the languageleapenglish.com premium domain listing or read our domain valuation insights."
+  noindex
+>
+  <Nav />
+  <main id="main-content">
+    <section class="max-w-2xl mx-auto px-6 py-24 text-center">
+      <div class="text-amber-400 mb-6 flex justify-center"><Icon name="search" class="text-5xl" /></div>
+      <h1 class="text-5xl font-bold tracking-tight text-white mb-4">404</h1>
+      <p class="text-lg text-slate-300 mb-8">
+        That page does not exist — but the domain you are looking for might still be available.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/"
+          class="min-h-12 inline-flex items-center justify-center px-7 rounded-3xl bg-white text-slate-950 font-semibold hover:bg-amber-50 transition"
+        >
+          Back to the listing
+        </a>
+        <a
+          href="/insights/"
+          class="min-h-12 inline-flex items-center justify-center px-7 rounded-3xl border border-slate-700 hover:bg-slate-900 font-medium transition"
+        >
+          Read domain insights
+        </a>
+        <a
+          href={ACQUISITION_MAILTO}
+          class="min-h-12 inline-flex items-center justify-center px-7 rounded-3xl text-amber-400 underline underline-offset-8 hover:text-amber-300 transition"
+        >
+          Enquire — {PRICE.formatted}
+        </a>
+      </div>
+    </section>
+    <Footer />
+  </main>
+</BaseLayout>

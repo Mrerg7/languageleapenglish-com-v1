@@ -1,14 +1,26 @@
+---
+import Icon from './Icon.astro';
+
+const signals = [
+  { label: 'Escrow.com protected', detail: 'Funds held until transfer completes' },
+  { label: 'Exact-match .com', detail: 'Keyword-rich & globally memorable' },
+  { label: 'Transfer in ~24 hours', detail: 'Registrar push or auth code' },
+  { label: 'SSL-secured inquiry', detail: 'Private, no obligation to buy' },
+];
+---
+
 <div class="border-b border-slate-800 bg-slate-900/70">
   <div class="max-w-screen-xl mx-auto px-6 py-5">
-    <div class="flex flex-wrap justify-center md:justify-between items-center gap-x-8 gap-y-3 text-sm">
-      <div class="flex items-center gap-x-2 text-emerald-400">
-        <i class="fa-solid fa-check-circle"></i>
-        <span class="font-medium">Instant brand authority</span>
-      </div>
-      <div class="hidden md:block w-px h-3.5 bg-slate-700"></div>
-      <div class="text-slate-400">Exact-match .com • Keyword-rich • Globally memorable</div>
-      <div class="hidden md:block w-px h-3.5 bg-slate-700"></div>
-      <div class="text-slate-400">Fast escrow-protected transfer</div>
-    </div>
+    <ul class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-4">
+      {signals.map((signal) => (
+        <li class="flex items-start gap-x-3" data-reveal>
+          <span class="text-emerald-400 mt-0.5 shrink-0"><Icon name="check-circle" class="text-lg" /></span>
+          <span class="min-w-0">
+            <span class="block text-sm font-semibold text-slate-200">{signal.label}</span>
+            <span class="block text-xs text-slate-400 leading-snug">{signal.detail}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
   </div>
 </div>
