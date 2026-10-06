@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node -e \"require('node:fs').rmSync('node_modules/.astro',{recursive:true,force:true})\"",
     "build": "astro build",
     "check": "astro check",
     "preview": "astro preview",
